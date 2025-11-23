@@ -1,10 +1,9 @@
-import sys
 import random
+import sys
 from collections import deque
 from typing import Deque, Iterable, List, Optional, Set, Tuple
 
 import pygame
-
 
 # ---- Constants ----
 WIDTH, HEIGHT = 600, 400
@@ -12,11 +11,11 @@ CELL_SIZE = 20
 GRID_W, GRID_H = WIDTH // CELL_SIZE, HEIGHT // CELL_SIZE
 
 BG_COLOR = (18, 18, 18)
-SNAKE_HEAD_COLOR = (76, 175, 80)   # Green 500
-SNAKE_BODY_COLOR = (56, 142, 60)   # Green 700
-FOOD_COLOR = (244, 67, 54)         # Red 500
+SNAKE_HEAD_COLOR = (76, 175, 80)  # Green 500
+SNAKE_BODY_COLOR = (56, 142, 60)  # Green 700
+FOOD_COLOR = (244, 67, 54)  # Red 500
 GRID_COLOR = (33, 33, 33)
-TEXT_COLOR = (236, 239, 241)       # Blue Grey 50
+TEXT_COLOR = (236, 239, 241)  # Blue Grey 50
 
 FPS = 12  # Game speed; tweak for responsiveness/difficulty
 
@@ -48,7 +47,12 @@ class Snake:
         Number of segments to grow (increments after eating food).
     """
 
-    def __init__(self, start: Tuple[int, int], length: int = 3, direction: Tuple[int, int] = RIGHT) -> None:
+    def __init__(
+        self,
+        start: Tuple[int, int],
+        length: int = 3,
+        direction: Tuple[int, int] = RIGHT,
+    ) -> None:
         self.body: Deque[Tuple[int, int]] = deque()
         # Initialize body horizontally to the left of start
         for i in range(length):
@@ -95,7 +99,8 @@ class Snake:
 
     def draw(self, surface: pygame.Surface) -> None:
         for idx, (x, y) in enumerate(self.body):
-            rect = pygame.Rect(x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE)
+            rect = pygame.Rect(x * CELL_SIZE, y * CELL_SIZE,
+                               CELL_SIZE, CELL_SIZE)
             color = SNAKE_HEAD_COLOR if idx == 0 else SNAKE_BODY_COLOR
             pygame.draw.rect(surface, color, rect, border_radius=4)
 
@@ -131,7 +136,13 @@ def draw_grid(surface: pygame.Surface) -> None:
         pygame.draw.line(surface, GRID_COLOR, (0, y), (WIDTH, y))
 
 
-def draw_text(surface: pygame.Surface, text: str, pos: Tuple[int, int], font: pygame.font.Font, color: Tuple[int, int, int] = TEXT_COLOR) -> None:
+def draw_text(
+    surface: pygame.Surface,
+    text: str,
+    pos: Tuple[int, int],
+    font: pygame.font.Font,
+    color: Tuple[int, int, int] = TEXT_COLOR,
+) -> None:
     img = font.render(text, True, color)
     surface.blit(img, pos)
 
